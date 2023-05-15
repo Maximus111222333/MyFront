@@ -1,24 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+
+import ProfilePage from "./pages/ProfilePage";
+import SignUp from "./components/SignUp";
+import { Container } from "react-bootstrap";
+import PlayPage from "./pages/PlayPage";
+import { Button } from "react-bootstrap";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <div className="page-header">
+          <div className="logo ">logo</div>
+          
+          <ul id="navigation-bar " className="nav-bar">
+            <li>
+              <Link className="Link" to="/">Home</Link>
+            </li>
+            <li>
+              <Link className="Link" to="myprofile">Profile</Link>
+            </li>
+            <li>
+              <Link className="Link" to="game">Play</Link>
+            </li>
+            <li>
+              <Link className="Link" to="game">Rules</Link>
+            </li>
+          </ul>
+          
+          <div class="header-right"><Button className="btn btn-primary outline-0">Sign up</Button></div>
+        </div>
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Container style={{ minHeight: "100vh", display: "block", alignItems: "center", justifyContent: "center" }}>
+                <SignUp />
+              </Container>
+            }
+          />
+
+          <Route path="myprofile" element={<ProfilePage />} />
+
+          <Route path="game" element={<PlayPage/>} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
