@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Game from "../components/Game";
+import Game from "../components/chess/Game";
 
 function PlayPage() {
     return (<Game/>);
