@@ -5,6 +5,7 @@ import SignUp from "./components/SignUp";
 import { Container } from "react-bootstrap";
 import PlayPage from "./pages/PlayPage";
 import { Button } from "react-bootstrap";
+import RulesPage from "./pages/Rules";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
               <Link className="Link" to="game">Play</Link>
             </li>
             <li>
-              <Link className="Link" to="game">Rules</Link>
+              <Link className="Link" to="rules">Rules</Link>
             </li>
           </ul>
           
@@ -42,7 +43,7 @@ function App() {
           />
 
           <Route path="myprofile" element={<ProfilePage />} />
-
+          <Route path="rules" element={<RulesPage />} />
           <Route path="game" element={<PlayPage/>} />
         </Routes>
       </div>
