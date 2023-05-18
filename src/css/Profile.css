@@ -1,0 +1,32 @@
+.game-statistics {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 3vh;
+}
+
+.game-statistics h3 {
+    padding: 2vh;
+    align-self: center;
+}
+
+.game-statistics table tr td {
+    border: 1.5px solid lightsalmon;
+    padding: 3vh;
+    text-align: center;
+}
+
+.game-statistics th {
+    border: 1.5px solid lightsalmon;
+    padding: 1vh;
+    text-align: center;
+}
+
+.table-statistics {
+    border: 1.5px solid lightsalmon;
+    text-align: center;
+}
+
+/*.stats {*/
+/*    padding: 30vh 1vh 1vh;*/
+/*}*/

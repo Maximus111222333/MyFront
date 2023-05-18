@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import ProfilePage from "./pages/profile/ProfilePage";
+import Profile from "./pages/Profile";
 import PlayPage from "./pages/PlayPage";
 import { Button } from "react-bootstrap";
 import RulesPage from "./pages/Rules";
-import SignUpPage from "./pages/SignUpPage";
+import SignUp from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
 import LogoImage from "./img/logo_2.jpg"
+import Login from "./pages/LoginPage";
 
 function App() {
     return (
@@ -32,14 +33,12 @@ function App() {
         </div>
 
         <Routes>
-          <Route path="home" element={<HomePage/>} />
-
-          <Route path="game" element={<PlayPage/>} />
-          <Route path="rules" element={<RulesPage />} />
-          <Route path="myprofile" element={<ProfilePage />} />
-
-          <Route path="/" element ={<SignUpPage/>} />
-
+            <Route path="home" element={<HomePage/>} />
+            <Route path="game" element={<PlayPage/>} />
+            <Route path="rules" element={<RulesPage />} />
+            <Route path="myprofile" element={<Profile />} />
+            <Route path="/" element={<Login/>} />
+            <Route path="/s" element ={<SignUp/>} />
           {/*<Route path="rules" element = {<SignUpPage/>} />*/}
 
         </Routes>

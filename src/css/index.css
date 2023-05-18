@@ -103,10 +103,6 @@ h1, h2{
   flex: 1;
 }
 
-.game-statistics {
-  flex: 1;
-}
-
 .visual-information {
   display: flex;
   padding: 2vh;
@@ -140,8 +136,8 @@ h1, h2{
 }
 
 .stats {
-  
-  padding: 1rem;
+  align-items: center;
+  padding: 2vh 1vh 1vh;
   text-decoration: none;
   font-size: 1.2rem;
 }
@@ -151,33 +147,9 @@ h1, h2{
   margin-top: 2vh;
   border-width: 2px;
   border-style: solid;
-  border-color:lightsalmon;
+  border-color: lightsalmon;
   padding: 7px;
   list-style-type:none;
-}
-
-.game-statistics {
-  display: flex;
-  flex-direction: column;
-  padding: 2vh;
-}
-
-.game-statistics h3 {
-  padding: 2vh;
-  align-self: center;
-}
-
-.game-statistics table tr td {
-  border:solid;
-  border-color:  lightsalmon;
-  border-width: 2px;
-  padding: 3vh;
-  text-align: center;
-}
-
-.match-history {
-  text-align: center;
-  border: 2px solid lightsalmon;
 }
 
 .home-page {

@@ -1,6 +1,7 @@
 import React, { Fragment, useRef } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 
+/*
 function SignUp() {
   const nickRef = useRef();
   const emailRef = useRef();
@@ -12,7 +13,7 @@ function SignUp() {
     console.log("Sign up handler called");
   }
   return (
-    <>
+    <div>
       <div className="justify-content-center d-flex mt-5">
         <Card>
           <Card.Body>
@@ -48,8 +49,9 @@ function SignUp() {
       <div className="w-100 text-center mt-2">
         Already have an account? <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Log In</a>
       </div>
-    </>
+    </div>
   );
 }
 
 export default SignUp;
+*/

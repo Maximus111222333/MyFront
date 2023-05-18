@@ -1,15 +1,18 @@
 import { Button } from "react-bootstrap";
-import {useEffect, useState} from "react";
 import axios from "axios";
 import React from "react";
+import Matches from "../components/Matches";
+import "../css/Profile.css"
 
-
-const user_id = 4;
+const user_id = 2;
+const number_of_matches = -1;
+const offset = 0;
 const url_0 = `http://127.0.0.1:8000/user/get_info_by_user_id?user_id=${user_id}`
-const url_1 = "http://127.0.0.1:8000/user/get_info_of_current_user"
+const url_1 = `http://localhost:8000/matches/get_matches_by_user_id?user_id=${user_id}&number_of_matches=${number_of_matches}&offset=${offset}`
+const url_logout = `http://127.0.0.1:8000/auth/jwt/logout`
 
 
-class ProfilePage extends React.Component {
+class Profile extends React.Component {
     constructor(props) {
         super(props);
 
@@ -17,8 +20,13 @@ class ProfilePage extends React.Component {
             this.setState({user_data: response.data.data})
         })
 
+        axios.get(url_1).then((response) => {
+            this.setState({matches_list: response.data.data})
+        })
+
         this.state = {
-            user_data: {}
+            user_data: {},
+            matches_list: []
         }
 
     }
@@ -31,7 +39,9 @@ class ProfilePage extends React.Component {
                     <div className="profile-avatar">Avatar</div>
                     <div className="stat-boxes">
                         <ul className="stats">
+                            <h5>Nickname</h5>
                             <li>{this.state.user_data.nickname}</li>
+                            <h5>Overall match number</h5>
                             <li>{this.state.user_data.number_matches_blitz + this.state.user_data.number_matches_rapid
                                 + this.state.user_data.number_matches_classical}</li>
                             <li>{Math.round((this.state.user_data.rate_blitz + this.state.user_data.rate_rapid +
@@ -45,12 +55,12 @@ class ProfilePage extends React.Component {
                 </div>
                 <div className="settings-buttons">
                     <Button>Personal account settings</Button>
-                    <Button>Quit the account</Button>
+                    <Button onClick={this.quitTheProfile}>Quit the account</Button>
                 </div>
             </div>
             <div className="game-statistics">
                 <h3>My statistics</h3>
-                <table>
+                <table className="table-statistics">
                     <thead>
                     <tr>
                         <th>Number of games</th>
@@ -76,53 +86,33 @@ class ProfilePage extends React.Component {
                     </tr>
                     </tbody>
                 </table>
+                <br/>
                 <h3 className="stat-header">Match history</h3>
-                <table className="match-history">
+                <table className="table-statistics">
+                    <thead>
                     <tr>
-                        <th>Outcome</th>
+                        <th>Result of match</th>
+                        <th>Game mode</th>
+                        <th>Match duration</th>
                         <th>Opponent</th>
                         <th>Rate change</th>
-                        <th>Mode</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
+                    </thead>
+                    <Matches matches={this.state.matches_list}/>
                 </table>
             </div>
         </div>
         )
     }
 
-    set
-
-    // setNumberOfMatches(number) {
-    //     if (number === 0) {
-    //         return 1;
-    //     } else {
-    //         return number;
-    //     }
-    // }
+    quitTheProfile() {
+        axios.post(url_logout)
+            .then((response) => {
+            console.log(response.data);
+            // тут надо перенаправлять на страницу авторизации
+        })
+    }
 }
 
 
-// function ProfilePage() {
-//
-//     const [data, setData] = useState([])
-//
-//     useEffect(() => {
-//         axios
-//             .get(url_0)
-//             .then((response) => {
-//                     setData(response.data.data)
-//                     // console.log(response.data.data);
-//                 }
-//             )}, []);
-//     return (
-//
-//     );
-// }
-
-export default ProfilePage;
+export default Profile;
