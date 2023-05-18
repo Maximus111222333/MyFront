@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../components/Chess.css"
+import "./Chess.css"
 
 export default function Square(props) {
   return (

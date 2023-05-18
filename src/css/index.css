@@ -179,3 +179,52 @@ h1, h2{
   text-align: center;
   border: 2px solid lightsalmon;
 }
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-box {
+  align-self: center;
+  border: 2px solid lightsalmon;
+  border-radius: 2vh;
+  width: 80%;
+  padding: 5vh;
+  margin: 2vh;
+  text-align: center;
+}
+
+.introduction-box {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  
+}
+
+.board-container {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/b/b0/Belarusian_chess_board_with_classical_images_of_pieces.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 40vh;
+  height: 32vh;
+  border: 2px solid lightsalmon;
+}
+
+.board-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  border: 2px dashed lightsalmon;
+  border-radius: 2vh;
+  margin-left: 2vh;
+}

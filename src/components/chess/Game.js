@@ -1,13 +1,13 @@
 import React from "react";
-import "../components/Chess.css";
+import "./Chess.css";
 import Board from "./Board.js";
 import FallenSoldierBlock from "./FallenSoldiersBlock.js";
 import initialiseChessBoard from "./InitializeChessBoard.js";
 import classes from "./Game.module.css"
 
 export default class Game extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       squares: initialiseChessBoard(),
       whiteFallenSoldiers: [],
