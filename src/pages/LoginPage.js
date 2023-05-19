@@ -1,6 +1,8 @@
-import React, { useRef } from 'react';
 import { Card, Form, Button } from 'react-bootstrap';
 import axios from "axios";
+import {CookieJar} from "tough-cookie";
+import {wrapper} from "axios-cookiejar-support";
+import React from "react";
 
 const url_login = `http://127.0.0.1:8000/auth/jwt/login`
 
@@ -18,6 +20,19 @@ class Login extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
+        // const axios = require('axios');
+        // const tough = require('tough-cookie');
+
+// Create a CookieJar instance
+//         const cookieJar = new tough.CookieJar();
+
+// Configure axios to use the CookieJar
+//         axios.defaults.jar = cookieJar;
+//         axios.defaults.withCredentials = true;
+
+        const jar = new CookieJar();
+        const client = wrapper(axios.create({ jar }));
+
         let data = new URLSearchParams();
         data.append('username', this.state.email);
         data.append('password', this.state.password);
@@ -26,9 +41,26 @@ class Login extends React.Component {
         data.append('client_id', '');
         data.append('client_secret', '');
 
-        axios.post(url_login, data).then((response) => {
-            console.log(response.data);
-        });
+        // axios.post(url_login, data, {withCredentials: true}).then((response) => {
+        //     console.log(response.headers["set-cookie"]);
+        //     console.log(response.headers["Content-Type"]);
+        //     console.log(response.data);
+        // });
+        // console.log("---------------------")
+        fetch(url_login, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams(data)
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                console.log(data);
+            })
     };
 
 

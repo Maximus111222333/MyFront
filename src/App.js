@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import Profile from "./pages/Profile";
+import Profile from "./pages/ProfilePage";
 import PlayPage from "./pages/PlayPage";
 import { Button } from "react-bootstrap";
 import RulesPage from "./pages/Rules";

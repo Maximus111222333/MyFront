@@ -7,7 +7,7 @@ import "../css/Profile.css"
 const user_id = 2;
 const number_of_matches = -1;
 const offset = 0;
-const url_0 = `http://127.0.0.1:8000/user/get_info_by_user_id?user_id=${user_id}`
+const url_get_info = `http://localhost:8000/user/get_info_of_current_user`
 const url_1 = `http://localhost:8000/matches/get_matches_by_user_id?user_id=${user_id}&number_of_matches=${number_of_matches}&offset=${offset}`
 const url_logout = `http://127.0.0.1:8000/auth/jwt/logout`
 
@@ -16,13 +16,14 @@ class Profile extends React.Component {
     constructor(props) {
         super(props);
 
-        axios.get(url_0).then((response) => {
+        axios.get(url_get_info).then((response) => {
+            console.log(response.data)
             this.setState({user_data: response.data.data})
         })
 
-        axios.get(url_1).then((response) => {
-            this.setState({matches_list: response.data.data})
-        })
+        // axios.get(url_1).then((response) => {
+        //     this.setState({matches_list: response.data.data})
+        // })
 
         this.state = {
             user_data: {},
