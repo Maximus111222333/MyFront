@@ -1,33 +1,34 @@
 import { Button } from "react-bootstrap";
-import axios from "axios";
 import React from "react";
 import Matches from "../components/Matches";
 import "../css/Profile.css"
+import ChangeNickname from "../services/ChangeNickname";
 
-const user_id = 2;
-const number_of_matches = -1;
-const offset = 0;
-const url_get_info = `http://localhost:8000/user/get_info_of_current_user`
-const url_1 = `http://localhost:8000/matches/get_matches_by_user_id?user_id=${user_id}&number_of_matches=${number_of_matches}&offset=${offset}`
-const url_logout = `http://127.0.0.1:8000/auth/jwt/logout`
 
+const BASE_URL = `http://localhost:8000`
+const url_get_info = BASE_URL + `/user/get_info_of_current_user`;
+const url_logout = BASE_URL + `/auth/jwt/logout`;
 
 class Profile extends React.Component {
     constructor(props) {
         super(props);
 
-        axios.get(url_get_info).then((response) => {
-            console.log(response.data)
-            this.setState({user_data: response.data.data})
+        fetch(url_get_info, {
+            method: 'GET',
+            credentials: 'include',
         })
+            .then(response => {
+                return response.json();
+            })
+            .then(data_res => {
+                console.log(data_res);
+                this.setState({user_data: data_res.data})
+            });
 
-        // axios.get(url_1).then((response) => {
-        //     this.setState({matches_list: response.data.data})
-        // })
 
         this.state = {
             user_data: {},
-            matches_list: []
+            matches_list: [],
         }
 
     }
@@ -45,17 +46,16 @@ class Profile extends React.Component {
                             <h5>Overall match number</h5>
                             <li>{this.state.user_data.number_matches_blitz + this.state.user_data.number_matches_rapid
                                 + this.state.user_data.number_matches_classical}</li>
+                            <h5>Average rate</h5>
                             <li>{Math.round((this.state.user_data.rate_blitz + this.state.user_data.rate_rapid +
                                 this.state.user_data.rate_classical) / 3.0)}</li>
                         </ul>
                     </div>
                 </div>
+                <ChangeNickname/>
                 <div className="settings-buttons">
-                    <Button>Change Nickname</Button>
-                    <Button>Change Avatar</Button>
-                </div>
-                <div className="settings-buttons">
-                    <Button>Personal account settings</Button>
+                    {/*<Button>Personal account settings</Button>*/}
+                    {/*<Link onClick={this.quitTheProfile} to={"/"}>Quit the account</Link>*/}
                     <Button onClick={this.quitTheProfile}>Quit the account</Button>
                 </div>
             </div>
@@ -106,12 +106,42 @@ class Profile extends React.Component {
         )
     }
 
-    quitTheProfile() {
-        axios.post(url_logout)
-            .then((response) => {
-            console.log(response.data);
-            // тут надо перенаправлять на страницу авторизации
+
+    changeNickname() {
+        fetch('/change_curr_user_nickname', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ new_nickname: 'Новый никнейм' })
         })
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+
+    }
+
+    quitTheProfile() {
+
+        fetch(url_logout, {
+            method: 'POST',
+            credentials: 'include',
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                console.log(data);
+            })
+
+        window.location.href = '/';
     }
 }
 

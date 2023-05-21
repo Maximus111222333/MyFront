@@ -1,10 +1,9 @@
 import { Card, Form, Button } from 'react-bootstrap';
-import axios from "axios";
-import {CookieJar} from "tough-cookie";
-import {wrapper} from "axios-cookiejar-support";
 import React from "react";
+import "../css/Login.css"
 
-const url_login = `http://127.0.0.1:8000/auth/jwt/login`
+const BASE_URL = `http://localhost:8000`
+const url_login = BASE_URL + `/auth/jwt/login`
 
 class Login extends React.Component {
     constructor(props) {
@@ -13,56 +12,37 @@ class Login extends React.Component {
         this.state = {
             email: "",
             password: "",
+            inputValue: "error"
         };
     }
-
 
     handleSubmit = (e) => {
         e.preventDefault();
 
-        // const axios = require('axios');
-        // const tough = require('tough-cookie');
-
-// Create a CookieJar instance
-//         const cookieJar = new tough.CookieJar();
-
-// Configure axios to use the CookieJar
-//         axios.defaults.jar = cookieJar;
-//         axios.defaults.withCredentials = true;
-
-        const jar = new CookieJar();
-        const client = wrapper(axios.create({ jar }));
-
         let data = new URLSearchParams();
+        data.append('grant_type', '');
         data.append('username', this.state.email);
         data.append('password', this.state.password);
-        data.append('grant_type', '');
         data.append('scope', '');
         data.append('client_id', '');
         data.append('client_secret', '');
 
-        // axios.post(url_login, data, {withCredentials: true}).then((response) => {
-        //     console.log(response.headers["set-cookie"]);
-        //     console.log(response.headers["Content-Type"]);
-        //     console.log(response.data);
-        // });
-        // console.log("---------------------")
         fetch(url_login, {
             method: 'POST',
             credentials: 'include',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
             body: new URLSearchParams(data)
         })
             .then((response) => {
                 return response.json()
             })
             .then((data) => {
+                this.setState({inputValue: data.status})
+                if (data.status === "success") {
+                    window.location.href = '/home';
+                }
                 console.log(data);
             })
     };
-
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
@@ -71,13 +51,13 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                <div className="justify-content-center d-flex mt-5">
-                    <Card>
-                        <Card.Body>
-                            <h2 className="text-center mb-4">Log In</h2>
+                <div  className="login-form">
+                    <Card className="card-form">
+                        <Card.Body className="card-form">
+                            <h1 className="text-center mb-4">Log In</h1>
                             <Form onSubmit={this.handleSubmit}>
-                                <Form.Group id="email">
-                                    <Form.Label>Email</Form.Label>
+                                <Form.Group className="group-form" id="email">
+                                    <Form.Label className="labels-form">Email</Form.Label>
                                     <Form.Control
                                         type="text"
                                         name="email"
@@ -86,8 +66,8 @@ class Login extends React.Component {
                                         required
                                     />
                                 </Form.Group>
-                                <Form.Group id="password">
-                                    <Form.Label>Password</Form.Label>
+                                <Form.Group className="group-form" id="password">
+                                    <Form.Label className="labels-form">Password</Form.Label>
                                     <Form.Control
                                         type="password"
                                         name="password"
@@ -96,16 +76,14 @@ class Login extends React.Component {
                                         required
                                     />
                                 </Form.Group>
-                                <Button className="w-100 mt-4" type="submit">
-                                    Log In
-                                </Button>
+                                <Button className="button-form" type="submit">Log In</Button>
                             </Form>
                         </Card.Body>
                     </Card>
-                </div>
-                <div className="w-100 text-center mt-2">
-                    Dont have an account?{" "}
-                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Sign Up</a>
+                    <div className="w-100 text-center mt-2">
+                        Dont have an account?{" "}
+                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Sign Up</a>
+                    </div>
                 </div>
             </div>
         );

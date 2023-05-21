@@ -2,10 +2,10 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import Profile from "./pages/ProfilePage";
 import PlayPage from "./pages/PlayPage";
 import { Button } from "react-bootstrap";
-import RulesPage from "./pages/Rules";
+import RulesPage from "./pages/RulesPage";
 import SignUp from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
-import LogoImage from "./img/logo_2.jpg"
+import LogoImage from "./img/logo.jpg"
 import Login from "./pages/LoginPage";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
         <div>
             <div className="page-header">
                 <div className="logo">
-                    <img src={LogoImage} alt="Error"/>
+                    <img className="logo-img" src={LogoImage} alt="Error"/>
                 </div>
             <ul id="navigation-bar " className="nav-bar">
                 <li>
@@ -29,6 +29,9 @@ function App() {
                 <li>
                     <Link className="Link" to="myprofile">Profile</Link>
                 </li>
+                <li>
+                    <Link className="Link" to="/">Log In</Link>
+                </li>
           </ul>
         </div>
 
@@ -38,7 +41,7 @@ function App() {
             <Route path="rules" element={<RulesPage />} />
             <Route path="myprofile" element={<Profile />} />
             <Route path="/" element={<Login/>} />
-            <Route path="/s" element ={<SignUp/>} />
+            <Route path="/reg" element ={<SignUp/>} />
           {/*<Route path="rules" element = {<SignUpPage/>} />*/}
 
         </Routes>
