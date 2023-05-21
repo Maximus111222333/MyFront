@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
 import LogoImage from "./img/logo.jpg"
 import Login from "./pages/LoginPage";
+import ChooseModePage from "./pages/ChooseModePage";
 
 function App() {
     return (
@@ -21,7 +22,7 @@ function App() {
                     <Link className="Link" to="home">Home</Link>
                 </li>
                 <li>
-                    <Link className="Link" to="game">Play</Link>
+                    <Link className="Link" to="choosemode">Play</Link>
                 </li>
                 <li>
                     <Link className="Link" to="rules">Rules</Link>
@@ -42,6 +43,7 @@ function App() {
             <Route path="myprofile" element={<Profile />} />
             <Route path="/" element={<Login/>} />
             <Route path="/reg" element ={<SignUp/>} />
+            <Route path="/choosemode" element = {<ChooseModePage/>}/>
           {/*<Route path="rules" element = {<SignUpPage/>} />*/}
 
         </Routes>
