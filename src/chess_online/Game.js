@@ -4,11 +4,14 @@ import Timer from "./Timer";
 import Board from "./Board";
 import initialiseChessBoard from "./InitializeBoard";
 import FallenSoldierBlock from "../components/chess/FallenSoldiersBlock";
+import {json} from "react-router-dom";
 
 
 export default class Game extends React.Component {
     constructor(props) {
         super(props);
+
+        const socket = this.props.websocket
 
         this.state = {
             squares: initialiseChessBoard(),
@@ -21,18 +24,59 @@ export default class Game extends React.Component {
         };
 
     }
+    async sendMessage(message) {
+        if (this.socket.readyState === WebSocket.OPEN) {
+            this.socket.send(message);
+        } else {
+            await new Promise((resolve) => {
+                this.socket.onopen = resolve;
+            });
+            this.socket.send(message);
+        }
+    }
+
+    async receiveData() {
+        return new Promise((resolve) => {
+            this.socket.onmessage = (event) => {
+                const message = event.data;
+                const jsonData = JSON.parse(message);
+                console.log("Received JSON data:", jsonData);
+                resolve(jsonData);
+            };
+        });
+    }
+
+    // socket.onmessage = (event) => {
+    //     const message = event.data;
+    //     const jsonData = JSON.parse(message);
+    //     console.log("Received JSON data:", jsonData);
+    // };
+
+    // async example() {
+    //     await this.sendMessage("Hello, server!");
+    //     const response = await this.receiveMessage();
+    //     console.log("Received response:", response);
+    // }
 
     handleClick(i) {
         const squares = this.state.squares.slice();
 
         if (this.state.sourceSelection === -1) {
             if (!squares[i] || squares[i].player !== this.state.player) {
+
+                this.receiveData()
+                    .then((response) => {
+                    return response;
+                }).then((data) => {
+                    console.log(data);
+                })
+
                 this.setState({
                     status:
                         "Wrong selection. Choose player " + this.state.player + " pieces.",
                 });
-                if(squares[i])
-                {
+
+                if (squares[i]) {
                     squares[i].style = {...squares[i].style, backgroundColor:""};
 
                 }

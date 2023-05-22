@@ -46,6 +46,7 @@ class Profile extends React.Component {
     componentDidMount() {
         this.fetchData();
     }
+
     render() {
         return (
         <div className="prof-page">

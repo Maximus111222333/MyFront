@@ -3,11 +3,49 @@ import { Button } from "react-bootstrap";
 import "../css/index.css"
 import "../css/SelectMode.css"
 import {io} from "socket.io-client";
+import data from "bootstrap/js/src/dom/data";
 
 const BASE_URL = `http://localhost:8000`
+const url_get_info = BASE_URL + `/user/get_info_of_current_user`;
 let socket;
 
 class SelectModePage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.fetchData();
+
+        this.state = {
+            user_data: {},
+            user_id: -1,
+            matches_list: [],
+        }
+
+    }
+
+    async fetchData() {
+        try {
+            const response = await fetch(url_get_info, {
+                method: 'GET',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                const data_res = await response.json();
+                console.log(data_res);
+                this.setState({ user_data: data_res.data, user_id: data_res.data.id });
+            } else {
+                console.error('Ошибка');
+            }
+        } catch (error) {
+            console.error('Произошла ошибка:', error);
+        }
+    }
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
     render() {
         return (
             <div className="table-container">
@@ -120,10 +158,10 @@ class SelectModePage extends React.Component {
         //     console.log(authToken)
         // }
 
-        let user_id = 4
 
-        const socket = new WebSocket(`ws://localhost:8000/ws/${mode_id}/${user_id}`)
 
+        socket = new WebSocket(`ws://localhost:8000/wse/${mode_id}/${this.state.user_id}`)
+        socket.keepAlive = true;
         socket.onopen = () => {
             console.log("WebSocket connection established");
         };
@@ -133,14 +171,20 @@ class SelectModePage extends React.Component {
             const jsonData = JSON.parse(message);
             console.log("Received JSON data:", jsonData);
             // if (jsonData.status === "success" && jsonData.data.substring(0, 16) === "Game has founded") {
-                const props = { curr_user_id: user_id,
+                const props = { curr_user_id: this.state.user_id,
                     opponent_id: jsonData["details"], websocket: socket};
                 const serializedProps = encodeURIComponent(JSON.stringify(props));
-                window.location.href = `/game?props=${serializedProps}`;
+                // window.location.href = `/game?props=${serializedProps}`;
             // }
         };
 
-
+        socket.onclose = () => {
+            console.log("Соединение закрыто, попытка переподключения...");
+            setTimeout(() => {
+                socket = new WebSocket(`ws://localhost:8000/wse/${mode_id}/${this.state.user_id}`);
+                socket.keepAlive = true
+            }, 1000);
+        };
 
         // const url = "ws://localhost:8000/ws/1/1";
         // const url1 = `http://localhost:8000`;
