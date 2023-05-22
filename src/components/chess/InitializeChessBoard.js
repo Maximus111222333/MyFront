@@ -6,11 +6,15 @@ import Prince from '../pieces/Prince.js';
 import Queen from '../pieces/Queen.js';
 import Rook from '../pieces/Rook.js';
 import Throne from '../pieces/Throne.js';
+import Void from '../pieces/Void.js';
 
 export default function initialiseChessBoard(){
   const squares = Array(81).fill(null);
 
   let YourSide = 1; //The player at bottom side of the board
+
+  for(let i = 0; i < 81; i++)
+  squares[i] = new Void;
 
   for(let i = 9; i < 18; i++){
     squares[i] = new Pawn(3-YourSide);

@@ -2,8 +2,9 @@ import Piece from "./Piece";
 
 export default class Throne extends Piece{
   constructor() {
-    super(0, "https://w7.pngwing.com/pngs/893/135/png-transparent-geometry-motif-geometric-shapes-symmetry-monochrome-sphere-thumbnail.png")
+    super(3, "https://w7.pngwing.com/pngs/893/135/png-transparent-geometry-motif-geometric-shapes-symmetry-monochrome-sphere-thumbnail.png")
     this.initialPosition =  40;
+    this.player = 3;
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied) {
