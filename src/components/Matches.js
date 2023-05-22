@@ -11,34 +11,45 @@ class Matches extends React.Component {
         super(props);
 
         this.state = {
-            list_matches: []
+            list_matches: [],
         }
 
-        fetch(url_get_matches + `?number_of_matches=${number_of_matches}&offset=${offset}`, {
-            method: 'GET',
-            credentials: 'include',
-        })
-            .then(response => {
-                return response.json();
-            })
-            .then(data_res => {
-                this.setState({list_matches: data_res.data})
+        this.fetchMatches();
+
+    }
+
+    async fetchMatches() {
+        try {
+            const response = await fetch(url_get_matches + `?number_of_matches=${number_of_matches}&offset=${offset}`, {
+                method: 'GET',
+                credentials: 'include',
             });
 
+            if (response.ok) {
+                const data_res = await response.json();
+                this.setState({ list_matches: data_res.data }, () => {
+                    console.log(this.state.list_matches)
+                });
+            } else {
+                console.error('Ошибка при выполнении запроса');
+            }
+        } catch (error) {
+            console.error('Произошла ошибка:', error);
+        }
     }
 
     render() {
         if (this.state.list_matches.length > 0) {
-            console.log(this.state.list_matches.length)
+            console.log(this.state.list_matches)
             return (
                 <tbody className="list-matches">
                     {this.state.list_matches.map((elem) => (
                         <tr key={elem.id}>
-                            <td className="match-item">Победа/поражение</td>
+                            <td>{this.setResMatch(elem.player_1_id, this.props.curr_user_id)}</td>
                             <td>{this.setMode(elem.mode_id)}</td>
                             <td>{this.setTime(elem.game_length_sec)}</td>
-                            <td>Opponent</td>
-                            <td>Rate change</td>
+                            <td>{this.setOpponent(elem, this.props.curr_user_id)}</td>
+                            <td>{this.setRateChange(elem, this.props.curr_user_id)}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -52,8 +63,34 @@ class Matches extends React.Component {
         }
     }
 
+    setRateChange(elem, curr_user_id) {
+        if (elem.player_1_id === curr_user_id) {
+            return elem.rate_change_player_1;
+        } else {
+            return elem.rate_change_player_2;
+        }
+    }
+
+    setOpponent(elem, curr_user_id) {
+        if (elem.player_1_id === curr_user_id) {
+            return elem.player_2_nickname;
+        } else {
+            return elem.player_1_nickname;
+        }
+    }
+
+    setResMatch(player_winner_id, curr_user_id) {
+
+        console.log("curr_user_id = " + curr_user_id)
+        console.log("player_winner_id = " + player_winner_id)
+        if (curr_user_id === player_winner_id) {
+            return "Won match";
+        } else {
+            return "Lost match"
+        }
+    }
+
     setMode(mode_id) {
-        console.log("mode id " + mode_id.toString())
         if (mode_id === 0 || mode_id === 1 || mode_id === 2) {
             return "Blitz";
         } else if (mode_id === 3 || mode_id === 4 || mode_id === 5) {

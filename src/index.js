@@ -11,12 +11,12 @@ import "bootstrap/dist/css/bootstrap.min.css"
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <AuthProvider
-    authType="cookie"
-    authName="_auth"
-    cookieDomain="window.location.hostname"
-    cookieSecure={true}
-  >
-    <App />
-  </AuthProvider>
+    <AuthProvider
+        authType="cookie"
+        authName="_auth"
+        cookieDomain="window.location.hostname"
+        cookieSecure={true}
+    >
+        <App/>
+    </AuthProvider>
 );

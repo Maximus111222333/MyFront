@@ -10,10 +10,15 @@
     align-self: center;
 }
 
-.game-statistics table tr td {
+.game-statistics table td {
     border: 1.5px solid lightsalmon;
+    /*background-color: blue;*/
     padding: 3vh;
     text-align: center;
+}
+
+.game-statistics thead {
+    background-color: wheat;
 }
 
 .game-statistics th {
@@ -27,10 +32,10 @@
     text-align: center;
 }
 
-.settings-buttons {
+.settings-buttons-block {
     padding: 2vh;
     display: flex;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
     justify-content: space-evenly;
 }
 
@@ -45,17 +50,34 @@
     display: flex;
 }
 
+.settings-buttons-block .settings-buttons .setting-button {
+    /*width: 100%;*/
+    /*background-color: blue;*/
+}
+
+.settings-buttons-block .setting-button {
+    width: 110%;
+    background-color: rgb(148, 117, 70);
+    border-width: 0;
+    height: 9vh;
+}
+
 .change-nickname-buttons .input-buttons {
     padding: 1vh;
     margin: 1vh 1vh 1vh;
-    width:100%;
-    height: 6vh;
+    /*width:1%;*/
+    height: 7vh;
+
     background-color: rgb(148, 117, 70);
     border-width: 0;
 }
 
 .stat-boxes {
     margin: auto;
+}
+
+.stat-boxes li {
+    border-radius: 20px;
 }
 
 .stats {
@@ -107,7 +129,11 @@
     width: 50vh;
     height: 50vh;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
     border-color: coral;
+}
+
+.profile-avatar-img {
+    width: 50vh;
 
 }

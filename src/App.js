@@ -1,12 +1,13 @@
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import Profile from "./pages/ProfilePage";
-import PlayPage from "./pages/PlayPage";
-import { Button } from "react-bootstrap";
+import PlayPage from "./pages/PlayPage [old]";
 import RulesPage from "./pages/RulesPage";
 import SignUp from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
 import LogoImage from "./img/logo.jpg"
 import Login from "./pages/LoginPage";
+import SelectModePage from "./pages/SelectModePage";
+import GamePage from "./pages/GamePage";
 
 function App() {
     return (
@@ -21,7 +22,10 @@ function App() {
                     <Link className="Link" to="home">Home</Link>
                 </li>
                 <li>
-                    <Link className="Link" to="game">Play</Link>
+                    <Link className="Link" to="board">Board</Link>
+                </li>
+                <li>
+                    <Link className="Link" to="selectmode">Play</Link>
                 </li>
                 <li>
                     <Link className="Link" to="rules">Rules</Link>
@@ -37,15 +41,16 @@ function App() {
 
         <Routes>
             <Route path="home" element={<HomePage/>} />
-            <Route path="game" element={<PlayPage/>} />
+            <Route path="board" element={<PlayPage/>} />
             <Route path="rules" element={<RulesPage />} />
             <Route path="myprofile" element={<Profile />} />
             <Route path="/" element={<Login/>} />
-            <Route path="/reg" element ={<SignUp/>} />
-          {/*<Route path="rules" element = {<SignUpPage/>} />*/}
+            <Route path="reg" element ={<SignUp/>} />
+            <Route path="selectmode" element={<SelectModePage/>} />
+            <Route path="game" element={<GamePage/>} />
 
         </Routes>
-      </div>
+        </div>
     </Router>
   );
 }

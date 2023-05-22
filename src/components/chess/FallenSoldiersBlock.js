@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Chess.css"
+import "../../css/Chess.css"
 import Square from './Square';
 
 export default class FallenSoldierBlock extends React.Component {

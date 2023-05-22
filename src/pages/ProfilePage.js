@@ -3,6 +3,8 @@ import React from "react";
 import Matches from "../components/Matches";
 import "../css/Profile.css"
 import ChangeNickname from "../services/ChangeNickname";
+import Avatar from "../img/t2.jpg"
+import async from "async";
 
 
 const BASE_URL = `http://localhost:8000`
@@ -13,18 +15,7 @@ class Profile extends React.Component {
     constructor(props) {
         super(props);
 
-        fetch(url_get_info, {
-            method: 'GET',
-            credentials: 'include',
-        })
-            .then(response => {
-                return response.json();
-            })
-            .then(data_res => {
-                console.log(data_res);
-                this.setState({user_data: data_res.data})
-            });
-
+       this.fetchData();
 
         this.state = {
             user_data: {},
@@ -33,12 +24,36 @@ class Profile extends React.Component {
 
     }
 
+    async fetchData() {
+        try {
+            const response = await fetch(url_get_info, {
+                method: 'GET',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                const data_res = await response.json();
+                console.log(data_res);
+                this.setState({ user_data: data_res.data });
+            } else {
+                console.error('Ошибка');
+            }
+        } catch (error) {
+            console.error('Произошла ошибка:', error);
+        }
+    }
+
+    componentDidMount() {
+        this.fetchData();
+    }
     render() {
         return (
         <div className="prof-page">
             <div className="personal-data">
                 <div className="visual-information">
-                    <div className="profile-avatar">Avatar</div>
+                    <div className="profile-avatar">
+                        <img className="profile-avatar-img" src={Avatar} alt="Error"/>
+                    </div>
                     <div className="stat-boxes">
                         <ul className="stats">
                             <h5>Nickname</h5>
@@ -52,11 +67,12 @@ class Profile extends React.Component {
                         </ul>
                     </div>
                 </div>
-                <ChangeNickname/>
-                <div className="settings-buttons">
-                    {/*<Button>Personal account settings</Button>*/}
-                    {/*<Link onClick={this.quitTheProfile} to={"/"}>Quit the account</Link>*/}
-                    <Button onClick={this.quitTheProfile}>Quit the account</Button>
+                <br/>
+                <div className="settings-buttons-block">
+                    <ChangeNickname/>
+                    <div>
+                        <Button className="setting-button" onClick={this.quitTheProfile}>Quit the account</Button>
+                    </div>
                 </div>
             </div>
             <div className="game-statistics">
@@ -73,17 +89,17 @@ class Profile extends React.Component {
                     <tr>
                         <td>{this.state.user_data.number_matches_blitz}</td>
                         <td>{this.state.user_data.rate_blitz}</td>
-                        <td>winrate in Blitz</td>
+                        <td>{this.state.user_data.winrate_blitz}</td>
                     </tr>
                     <tr>
                         <td>{this.state.user_data.number_matches_rapid}</td>
                         <td>{this.state.user_data.rate_rapid}</td>
-                        <td>winrate in Rapid</td>
+                        <td>{this.state.user_data.winrate_rapid}</td>
                     </tr>
                     <tr>
                         <td>{this.state.user_data.number_matches_classical}</td>
                         <td>{this.state.user_data.rate_classical}</td>
-                        <td>winrate in Classical</td>
+                        <td>{this.state.user_data.winrate_classical}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -92,14 +108,14 @@ class Profile extends React.Component {
                 <table className="table-statistics">
                     <thead>
                     <tr>
-                        <th>Result of match</th>
+                        <th>Result</th>
                         <th>Game mode</th>
                         <th>Match duration</th>
                         <th>Opponent</th>
                         <th>Rate change</th>
                     </tr>
                     </thead>
-                    <Matches matches={this.state.matches_list}/>
+                    <Matches curr_user_id={this.state.user_data.id}/>
                 </table>
             </div>
         </div>

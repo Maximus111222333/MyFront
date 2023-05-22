@@ -47,7 +47,7 @@ const ChangeNickname = () => {
     return (
         <div className="settings-buttons">
             {!isButtonHidden && (
-                <Button className="change-nick" onClick={openPopup}>Change Nickname</Button>
+                <Button className="setting-button" onClick={openPopup}>Change Nickname</Button>
             )}
             {isOpen && (
                 <div>

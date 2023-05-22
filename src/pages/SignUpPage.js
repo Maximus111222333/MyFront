@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Card, Form, Button } from 'react-bootstrap';
-import axios from "axios";
 
-const url_register = `http://127.0.0.1:8000/auth/register`
+const BASE_URL = `http://localhost:8000`
+const url_register = BASE_URL + `/auth/register`
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -20,18 +20,36 @@ class SignUp extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        let data = {
-            email: this.state.email,
-            password: this.state.password,
-            is_active: false,
-            is_superuser: false,
-            is_verified: false,
-            nickname: this.state.nickname
-        };
+        const data = {
+            "email": this.state.email,
+            "password": this.state.password,
+            "is_active": true,
+            "is_superuser": false,
+            "is_verified": false,
+            "nickname": this.state.nickname
+        }
 
-        axios.post(url_register, data).then((response) => {
-            console.log(response.data)
+        console.log(data)
+
+        fetch(url_register, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         })
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                this.setState({inputValue: data.status})
+                if (data.email === this.state.email) {
+                    window.location.href = '/';
+                }
+                console.log(data);
+            })
     };
 
     handleChange = (e) => {
