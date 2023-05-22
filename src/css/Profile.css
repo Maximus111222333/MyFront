@@ -65,8 +65,8 @@
 .change-nickname-buttons .input-buttons {
     padding: 1vh;
     margin: 1vh 1vh 1vh;
-    /*width:1%;*/
-    height: 7vh;
+    width: 11vh;
+    height: 6vh;
 
     background-color: rgb(148, 117, 70);
     border-width: 0;

@@ -2,7 +2,7 @@
     padding: 2vh;
 }
 
-.avanickrate{
+.avanickrate {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -16,7 +16,6 @@
 .avanickrate div {
     align-self: center;
     margin: auto;
-    
 }
 
 .gamepage {

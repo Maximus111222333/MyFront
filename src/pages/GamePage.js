@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Game from "../chess_online/Game";
 
 class GamePage extends React.Component {
@@ -13,7 +13,6 @@ class GamePage extends React.Component {
 
         this.setState({curr_user_id: data_url.curr_user_id,
             opponent_id: data_url.opponent_id, websocket: data_url.websocket})
-        this.setState({opponent_id: data_url.opponent_id})
 
 
         this.state = {
@@ -25,7 +24,9 @@ class GamePage extends React.Component {
 
     render() {
         return (
-            <Game/>
+            <Game opponent_id={this.state.opponent_id}
+                  curr_user_id={this.state.curr_user_id}
+                  websocket={this.state.websocket}/>
         )
     }
 }

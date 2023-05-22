@@ -1,6 +1,8 @@
 import { Card, Form, Button } from 'react-bootstrap';
 import React from "react";
 import "../css/Login.css"
+import {Link, Route, Routes} from "react-router-dom";
+import SignUp from "./SignUpPage";
 
 const BASE_URL = `http://localhost:8000`
 const url_login = BASE_URL + `/auth/jwt/login`
@@ -81,9 +83,12 @@ class Login extends React.Component {
                         </Card.Body>
                     </Card>
                     <div className="w-100 text-center mt-2">
-                        Dont have an account?{" "}
-                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Sign Up</a>
+                        Dont have an account?
+                        <Link className="Link" to="/reg"> Sign Up</Link>
                     </div>
+                <Routes>
+                    <Route path="reg" element ={<SignUp/>} />
+                </Routes>
                 </div>
             </div>
         );

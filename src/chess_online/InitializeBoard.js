@@ -1,19 +1,18 @@
-import Bishop from '../pieces/Bishop.js';
-import King from '../pieces/King.js';
-import Knight from '../pieces/Knight.js';
-import Pawn from '../pieces/Pawn.js';
-import Prince from '../pieces/Prince.js';
-import Queen from '../pieces/Queen.js';
-import Rook from '../pieces/Rook.js';
-import Throne from '../pieces/Throne.js';
-
+import Bishop from '../components/pieces/Bishop.js';
+import King from '../components/pieces/King.js';
+import Knight from '../components/pieces/Knight.js';
+import Pawn from '../components/pieces/Pawn.js';
+import Prince from '../components/pieces/Prince.js';
+import Queen from '../components/pieces/Queen.js';
+import Rook from '../components/pieces/Rook.js';
+import Throne from '../components/pieces/Throne.js';
 
 export default function initialiseChessBoard(){
     const squares = Array(81).fill(null);
 
     let YourSide = 1; //The player at bottom side of the board
 
-    for (let i = 9; i < 18; i++){
+    for(let i = 9; i < 18; i++){
         squares[i] = new Pawn(3-YourSide);
         squares[i+54] = new Pawn(YourSide);
     }
