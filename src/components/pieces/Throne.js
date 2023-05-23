@@ -2,7 +2,7 @@ import Piece from "./Piece";
 
 export default class Throne extends Piece{
   constructor() {
-    super(3, "https://w7.pngwing.com/pngs/893/135/png-transparent-geometry-motif-geometric-shapes-symmetry-monochrome-sphere-thumbnail.png")
+    super(3, "https://upload.wikimedia.org/wikipedia/commons/2/20/Chess_Mlt45.svg")
     this.initialPosition =  40;
     this.player = 3;
   }

@@ -466,12 +466,12 @@ export default class Game extends React.Component {
             this.state.available_moves.push(this.available_move(i));
           else this.state.available_moves.push([]);
         }
-        /*this.state.available_moves[i].forEach((index) => {
+        this.state.available_moves[i].forEach((index) => {
           squares[index].style = {
             ...squares[index].style,
-            backgroundColor: "RGB(0,0,0)"
+            backgroundColor: "RGBA(255,0,0, 0.5)"
           }
-        })*/
+        })
       }
     } else if (
         this.state.sourceSelection > -1 &&
@@ -485,10 +485,10 @@ export default class Game extends React.Component {
       //squares[this.state.sourceSelection] = React.cloneElement(squares[this.state.sourceSelection], {}, null);
       //console.log("Second deletion called");
       if (squares[i] && squares[i].player === this.state.player) {
-        /*for(let j = 0; j < 81; j++)
+        for(let j = 0; j < 81; j++)
         {
           squares[j].style = { ...squares[j].style, backgroundColor: "" };
-        }*/
+        }
         this.setState({
           status: "Wrong selection. Choose valid source and destination again.",
           sourceSelection: -1,
@@ -507,10 +507,10 @@ export default class Game extends React.Component {
         const isMoveLegal = this.isMoveLegal(srcToDestPath);*/
 
         //if (isMovePossible && isMoveLegal) {
-        /*for(let j = 0; j < 81; j++)
+        for(let j = 0; j < 81; j++)
           {
             squares[j].style = { ...squares[j].style, backgroundColor: "" };
-          }*/
+          }
         if (!(squares[i] instanceof Void)) {
           if (squares[i].player === 1) {
             whiteFallenSoldiers.push(squares[i]);
@@ -617,11 +617,11 @@ export default class Game extends React.Component {
         sourceSelection: -1,
       });
       console.log("before the loop");
-      /*for(let j = 0; j < 81; j++)
+      for(let j = 0; j < 81; j++)
       {
         console.log(squares[j].style);
-        //squares[j].style = { ...squares[j].style, backgroundColor: "" };
-      }*/
+        squares[j].style = { ...squares[j].style, backgroundColor: "" };
+      }
     }
   }
 
