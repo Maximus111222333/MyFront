@@ -14,6 +14,7 @@ import Board from "./Board";
 import FallenSoldierBlock from "./FallenSoldiersBlock";
 import initialiseChessBoard from "./InitializeChessBoard";
 import React from "react";
+import GameEndModal from "../GameEndModal";
 
 export default class Game extends React.Component {
   constructor(props) {
@@ -109,7 +110,7 @@ export default class Game extends React.Component {
     for (let i = 0; i < 81; i++) {
       if (
         squares[i].player === side &&
-        this.state.available_moves.includes(i)
+        this.state.available_moves[i].includes(throne_coords)
       ) {
         squares[40] = new Throne(3);
         return true;
@@ -117,6 +118,18 @@ export default class Game extends React.Component {
     }
     squares[40] = new Throne(3);
     return false;
+  }
+
+  throne_is_captured(side)
+  {
+    console.log("Throne is captured");
+    console.log(side);
+    const squares = this.state.squares.slice();
+    console.log(squares);
+    if(squares[40].player === side)
+      return true;
+    else
+      return false;
   }
 
   check_prince_move(figure, x, y, legal_moves, for_player) {
@@ -135,6 +148,14 @@ export default class Game extends React.Component {
         Math.floor(coords / 9) <= 6
       )
         legal_moves.push(x + y * 9);
+      else if (
+        figure.player === 2 &&
+        !this.throne_is_under_controle(1) &&
+        coords % 9 >= 2 &&
+        coords % 9 <= 6 &&
+        Math.floor(coords / 9) >= 2 &&
+        Math.floor(coords / 9) <= 6
+      ) legal_moves.push(x + y * 9);
     } else if (figure.player != squares[x + y * 9].player) {
       legal_moves.push(x + y * 9);
       return true;
@@ -543,11 +564,23 @@ export default class Game extends React.Component {
             squares[this.find_prince(squares[i].player)] = new King(squares[i].player);
             else
             {
-
+              //Game end - you lost
+              //<GameEndModal isWin = {false}/>
+              window.location.href = "home";
             }
         }
+        
         squares[i] = squares[this.state.sourceSelection];
         squares[this.state.sourceSelection] = new Void();
+        console.log("move");
+        console.log(squares);
+
+        if(squares[i] instanceof Pawn && (Math.floor(i / 9) === 0 || Math.floor(i / 9) === 8)){
+          squares[i] = new Queen(squares[i].player);
+        }
+
+        
+
         console.log(squares[i]);
         let player = this.state.player === 1 ? 2 : 1;
         let turn = this.state.turn === "white" ? "black" : "white";
@@ -561,6 +594,10 @@ export default class Game extends React.Component {
           status: "",
           turn: turn,
         });
+        if(this.throne_is_captured((squares[i].player)))
+        {
+          window.location.href = "home";
+        }
         //}
       }
       this.state.available_moves = [];
