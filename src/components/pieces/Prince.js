@@ -1,13 +1,13 @@
 import Piece from "./Piece";
 
-const old = "https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces#/media/File:CommonerB_Transparent.svg"
+const old = "https://upload.wikimedia.org/wikipedia/commons/7/7d/Commoner_Transparent.svg"
 
 export default class Prince extends Piece {
     constructor(player) {
         super(
             player, player === 1
                 ? old
-                : "https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces#/media/File:Commoner_Transparent.svg"
+                : "https://upload.wikimedia.org/wikipedia/commons/4/49/CommonerB_Transparent.svg"
         );
     }
 

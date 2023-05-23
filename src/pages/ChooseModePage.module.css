@@ -5,6 +5,10 @@
     justify-content: center;
 }
 
+.game-board {
+    padding: 4vh;
+}
+
 .cont{
     justify-self: center;
     display: flex;

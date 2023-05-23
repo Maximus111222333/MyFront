@@ -645,24 +645,14 @@ export default class Game extends React.Component {
                 <div>Nickname</div>
                 <div>Rate</div>
               </div>
-              <div className="fallen-soldier-block">
-                <FallenSoldierBlock
-                    whiteFallenSoldiers={this.state.whiteFallenSoldiers}
-                />
-              </div>
+              
               <div className="game-board">
                 <Board
                     squares={this.state.squares}
                     onClick={(i) => this.handleClick(i)}
                 />
               </div>
-              <div className="fallen-soldier-block">
-                {
-                  <FallenSoldierBlock
-                      blackFallenSoldiers={this.state.blackFallenSoldiers}
-                  />
-                }
-              </div>
+              
               <div className={classes.avanickrate}>
                 <div>ava</div>
                 <div>Nickname</div>
