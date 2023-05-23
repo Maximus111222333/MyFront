@@ -123,6 +123,7 @@ export default class Game extends React.Component {
     var squares = this.state.squares.slice();
     var coords = this.find_king(figure.player);
     console.log(coords);
+    console.log(x, y);
     if (squares[x + y * 9] instanceof Void) legal_moves.push(x + y * 9);
     else if (squares[x + y * 9].player === 3) {
       if (
@@ -249,28 +250,28 @@ export default class Game extends React.Component {
       //Move like Bishop
 
       for (
-        let i = (coords % 9) + 1, j = coords / 9 + 1;
+        let i = (coords % 9) + 1, j = Math.floor(coords / 9) + 1;
         i < Math.min(9, (coords % 9) + 3) && j < Math.min(9, Math.floor(coords / 9) + 3);
         i++, j++
       ) {
         if (this.check_prince_move(temp_figure, i, j, legal_moves)) break;
       }
       for (
-        let i = (coords % 9) + 1, j = coords / 9 - 1;
+        let i = (coords % 9) + 1, j = Math.floor(coords / 9) - 1;
         i < Math.min(9, (coords % 9) + 3) && j > Math.max(-1, Math.floor(coords / 9) - 3);
         i++, j--
       ) {
         if (this.check_prince_move(temp_figure, i, j, legal_moves)) break;
       }
       for (
-        let i = (coords % 9) - 1, j = coords / 9 + 1;
+        let i = (coords % 9) - 1, j = Math.floor(coords / 9) + 1;
         i > Math.max(-1, (coords % 9) - 3) && j < Math.min(9, Math.floor(coords / 9) + 3);
         i--, j++
       ) {
         if (this.check_prince_move(temp_figure, i, j, legal_moves)) break;
       }
       for (
-        let i = (coords % 9) - 1, j = coords / 9 - 1;
+        let i = (coords % 9) - 1, j = Math.floor(coords / 9) - 1;
         i > Math.max(-1, (coords % 9) - 3) && j > Math.max(-1, Math.floor(coords / 9) - 3);
         i--, j--
       ) {
