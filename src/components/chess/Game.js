@@ -75,14 +75,14 @@ export default class Game extends React.Component {
   find_king(side) {
     var squares = this.state.squares.slice();
     for (let i = 0; i < 81; i++)
-      if (squares[i] === King && squares[i].player === side) return i;
+      if (squares[i] instanceof King && squares[i].player === side) return i;
     return -1;
   }
 
   find_prince(side) {
     var squares = this.state.squares.slice();
     for (let i = 0; i < 81; i++)
-      if (squares[i] === Prince && squares.player === side) return i;
+      if (squares[i] instanceof Prince && squares.player === side) return i;
     return -1;
   }
 
@@ -92,7 +92,7 @@ export default class Game extends React.Component {
     if (squares[x + y * 9] instanceof Void) legal_moves.push(x + y * 9);
     else if (
       figure.player != squares[x + y * 9].player &&
-      squares[x + y * 9].player != 4
+      squares[x + y * 9].player != 3
     ) {
       legal_moves.push(x + y * 9);
       return true;
@@ -122,8 +122,9 @@ export default class Game extends React.Component {
   check_prince_move(figure, x, y, legal_moves, for_player) {
     var squares = this.state.squares.slice();
     var coords = this.find_king(figure.player);
+    console.log(coords);
     if (squares[x + y * 9] instanceof Void) legal_moves.push(x + y * 9);
-    else if (squares[x + y * 9].player === 4) {
+    else if (squares[x + y * 9].player === 3) {
       if (
         figure.player === 1 &&
         !this.throne_is_under_controle(2) &&
