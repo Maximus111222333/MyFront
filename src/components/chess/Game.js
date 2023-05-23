@@ -82,7 +82,7 @@ export default class Game extends React.Component {
   find_prince(side) {
     var squares = this.state.squares.slice();
     for (let i = 0; i < 81; i++)
-      if (squares[i] instanceof Prince && squares.player === side) return i;
+      if (squares[i] instanceof Prince && squares[i].player === side) return i;
     return -1;
   }
 
@@ -402,6 +402,15 @@ export default class Game extends React.Component {
           status: "Choose destination for the selected piece",
           sourceSelection: i,
         });
+        this.state.available_moves = [];
+        for (let i = 0; i < 81; i++) {
+          if (
+              this.state.squares[i].player === 1 ||
+              this.state.squares[i].player === 2
+          )
+            this.state.available_moves.push(this.available_move(i));
+          else this.state.available_moves.push([]);
+        }
         /*this.state.available_moves[i].forEach((index) => {
           squares[index].style = {
             ...squares[index].style,
