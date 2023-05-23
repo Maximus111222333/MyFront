@@ -97,7 +97,8 @@ export default class Game extends React.Component {
       legal_moves.push(x + y * 9);
       return true;
     }
-    return true;
+    else
+      return true;
   }
 
   throne_is_under_controle(side) {
@@ -121,7 +122,7 @@ export default class Game extends React.Component {
   check_prince_move(figure, x, y, legal_moves, for_player) {
     var squares = this.state.squares.slice();
     var coords = this.find_king(figure.player);
-    if (squares[x + y * 9] === Void) legal_moves.push(x + y * 9);
+    if (squares[x + y * 9] instanceof Void) legal_moves.push(x + y * 9);
     else if (squares[x + y * 9].player === 4) {
       if (
         figure.player === 1 &&
@@ -136,8 +137,8 @@ export default class Game extends React.Component {
       legal_moves.push(x + y * 9);
       return true;
     }
-
-    return true;
+    else
+      return true;
   }
 
   available_move(coords) {
@@ -248,28 +249,28 @@ export default class Game extends React.Component {
 
       for (
         let i = (coords % 9) + 1, j = coords / 9 + 1;
-        i < Math.min(9, (coords % 9) + 3) && j < Math.min(9, coords / 9 + 3);
+        i < Math.min(9, (coords % 9) + 3) && j < Math.min(9, Math.floor(coords / 9) + 3);
         i++, j++
       ) {
         if (this.check_prince_move(temp_figure, i, j, legal_moves)) break;
       }
       for (
         let i = (coords % 9) + 1, j = coords / 9 - 1;
-        i < Math.min(9, (coords % 9) + 3) && j > Math.max(-1, coords / 9 - 3);
+        i < Math.min(9, (coords % 9) + 3) && j > Math.max(-1, Math.floor(coords / 9) - 3);
         i++, j--
       ) {
         if (this.check_prince_move(temp_figure, i, j, legal_moves)) break;
       }
       for (
         let i = (coords % 9) - 1, j = coords / 9 + 1;
-        i > Math.max(-1, (coords % 9) - 3) && j < Math.min(9, coords / 9 + 3);
+        i > Math.max(-1, (coords % 9) - 3) && j < Math.min(9, Math.floor(coords / 9) + 3);
         i--, j++
       ) {
         if (this.check_prince_move(temp_figure, i, j, legal_moves)) break;
       }
       for (
         let i = (coords % 9) - 1, j = coords / 9 - 1;
-        i > Math.max(-1, (coords % 9) - 3) && j > Math.max(-1, coords / 9 - 3);
+        i > Math.max(-1, (coords % 9) - 3) && j > Math.max(-1, Math.floor(coords / 9) - 3);
         i--, j--
       ) {
         if (this.check_prince_move(temp_figure, i, j, legal_moves)) break;
@@ -278,18 +279,18 @@ export default class Game extends React.Component {
       //Move like Rook
 
       for (let i = (coords % 9) - 1; i > Math.max(-1, i - 3); i--) {
-        if (this.check_prince_move(temp_figure, i, coords / 9, legal_moves))
+        if (this.check_prince_move(temp_figure, i, Math.floor(coords / 9), legal_moves))
           break;
       }
       for (let i = (coords % 9) + 1; i < Math.min(9, (coords % 9) + 3); i++) {
-        if (this.check_prince_move(temp_figure, i, coords / 9, legal_moves))
+        if (this.check_prince_move(temp_figure, i, Math.floor(coords / 9), legal_moves))
           break;
       }
-      for (let i = coords / 9 - 1; i > Math.max(-1, coords / 9 - 3); i--) {
+      for (let i = Math.floor(coords / 9) - 1; i > Math.max(-1, Math.floor(coords / 9) - 3); i--) {
         if (this.check_prince_move(temp_figure, coords % 9, i, legal_moves))
           break;
       }
-      for (let i = coords / 9 + 1; i < Math.min(coords / 9 + 3, 9); i++) {
+      for (let i = Math.floor(coords / 9) + 1; i < Math.min(Math.floor(coords / 9) + 3, 9); i++) {
         if (this.check_prince_move(temp_figure, coords % 9, i, legal_moves))
           break;
       }
@@ -444,7 +445,7 @@ export default class Game extends React.Component {
           {
             squares[j].style = { ...squares[j].style, backgroundColor: "" };
           }*/
-        if (squares[i] !== null) {
+        if (!(squares[i] instanceof Void)) {
           if (squares[i].player === 1) {
             whiteFallenSoldiers.push(squares[i]);
           } else {
@@ -499,7 +500,7 @@ export default class Game extends React.Component {
     {
       let isLegal = true;
       for (let i = 0; i < srcToDestPath.length; i++) {
-        if (this.state.squares[srcToDestPath[i]] !== null) {
+        if (!(this.state.squares[srcToDestPath[i]] instanceof Void)) {
           isLegal = false;
         }
       }
