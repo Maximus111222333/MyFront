@@ -321,6 +321,40 @@ export default class Game extends React.Component {
             legal_moves.push(new_i);
           }
       });
+
+      if(squares[coords].player === 1)
+      {
+        if(this.state._w_king )
+        {
+          if(this.state._rw_rook && squares[77] instanceof Void && squares[78] instanceof Void && squares[79] instanceof Void)
+          {
+            legal_moves.push(78);
+            legal_moves.push(79);
+          }
+          if(this.state._lw_rook && squares[75] instanceof Void && squares[74] instanceof Void && squares[73] instanceof Void)
+          {
+            legal_moves.push(74);
+            legal_moves.push(73);
+          }
+        }
+      }
+      if(squares[coords].player === 2)
+      {
+        if(this.state._b_king )
+        {
+          if(this.state._rb_rook && squares[5] instanceof Void && squares[6] instanceof Void && squares[7] instanceof Void)
+          {
+            legal_moves.push(6);
+            legal_moves.push(7);
+          }
+          if(this.state._lb_rook && squares[3] instanceof Void && squares[2] instanceof Void && squares[1] instanceof Void)
+          {
+            legal_moves.push(3);
+            legal_moves.push(2);
+          }
+        }
+      }
+
     } else if (squares[coords] instanceof Pawn) {
       if (squares[coords].player === 1) {
         if (squares[coords - 9].player === 4) {
@@ -465,6 +499,53 @@ export default class Game extends React.Component {
         }
         console.log("whiteFallenSoldiers", whiteFallenSoldiers);
         console.log("blackFallenSoldiers", blackFallenSoldiers);
+        if(squares[this.state.sourceSelection] instanceof King)
+        {
+          if(squares[this.state.sourceSelection].player === 1)
+            this.state._w_king = false;
+          if(squares[this.state.sourceSelection].player === 2)
+            this.state._b_king = false;
+        }
+        else if(squares[this.state.sourceSelection] instanceof Rook)
+        {
+          if(squares[this.state.sourceSelection].player === 1)
+          {
+            if(this.state.sourceSelection === 80)
+              this.state._rw_rook = false;
+            else if(this.state.sourceSelection === 72)
+              this.state._lw_rook = false;
+          }
+            
+          if(squares[this.state.sourceSelection].player === 2)
+          {
+            if(this.state.sourceSelection === 8)
+              this.state._rb_rook = false;
+            else if(this.state.sourceSelection === 0)
+              this.state._lb_rook = false;
+          }
+        }
+        if(squares[this.state.sourceSelection] instanceof King)
+        {
+          if((i%9 - this.state.sourceSelection % 9) > 1)
+          {
+            squares[i-1] = squares[Math.floor(i/9) * 9 + 8];
+            squares[Math.floor(i/9) * 9 + 8] = new Void;
+          }
+          if((i%9 - this.state.sourceSelection % 9) < -1)
+          {
+            squares[i+1] = squares[Math.floor(i/9) * 9];
+            squares[Math.floor(i/9)*9] = new Void;
+          }
+        }
+        if(squares[i] instanceof King)
+        {
+          if(this.find_prince(squares[i].player) !== -1)
+            squares[this.find_prince(squares[i].player)] = new King(squares[i].player);
+            else
+            {
+
+            }
+        }
         squares[i] = squares[this.state.sourceSelection];
         squares[this.state.sourceSelection] = new Void();
         console.log(squares[i]);

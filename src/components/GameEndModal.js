@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 
-const WarningModal = () => {
+const GameEndModal = (props) => {
     const [show, setShow] = useState(true);
 
-    const handleClose = () => {setShow(false); window.location.href = "home"};
+    const handleClose = () => {setShow(false); window.location.href = "/selectmode"};
     const handleShow = () => setShow(true);
 
     return (
@@ -15,12 +15,12 @@ const WarningModal = () => {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Error</Modal.Title>
+                    <Modal.Title>{props.isWin? "You've won" : "You've lost"}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body><b>You are not authorized</b></Modal.Body>
+                <Modal.Body><b></b></Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        To Game page
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -28,4 +28,4 @@ const WarningModal = () => {
     );
 };
 
-export default WarningModal;
+export default GameEndModal;
