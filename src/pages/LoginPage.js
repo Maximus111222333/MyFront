@@ -41,6 +41,9 @@ class Login extends React.Component {
                 this.setState({inputValue: data.status})
                 if (data.status === "success") {
                     window.location.href = '/home';
+                } else {
+                    alert("User with given email is not registered")
+                    this.setState({email: "", password: ""})
                 }
                 console.log(data);
             })
@@ -53,8 +56,8 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                <div  className="login-form">
-                    <Card className="card-form">
+                <div className="login-form">
+                    <Card className="card-form-l">
                         <Card.Body className="card-form">
                             <h1 className="text-center mb-4">Log In</h1>
                             <Form onSubmit={this.handleSubmit}>
@@ -78,16 +81,18 @@ class Login extends React.Component {
                                         required
                                     />
                                 </Form.Group>
-                                <Button className="button-form" type="submit">Log In</Button>
+                                <Button className="button-form" type="submit">
+                                    Log In
+                                </Button>
                             </Form>
                         </Card.Body>
                     </Card>
                     <div className="w-100 text-center mt-2">
-                        Dont have an account?
-                        <Link className="Link" to="/reg"> Sign Up</Link>
+                        Dont have an account?{" "}
+                        <Link className="link-primary" to="/reg">Sign Up</Link>
                     </div>
                 <Routes>
-                    <Route path="reg" element ={<SignUp/>} />
+                    <Route path="/reg" element ={<SignUp/>} />
                 </Routes>
                 </div>
             </div>

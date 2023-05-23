@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Backdrop from "./Backdrop [old]";
-import Modal from "./Modal [old]";
+import Modal from "./WarningModal";
 
 function Todo(props) {
     const [modalIsOpen, setModalIsOpen] = useState(false);

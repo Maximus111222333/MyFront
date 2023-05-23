@@ -2,8 +2,6 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import "../css/index.css"
 import "../css/SelectMode.css"
-import {io} from "socket.io-client";
-import data from "bootstrap/js/src/dom/data";
 
 const BASE_URL = `http://localhost:8000`
 const url_get_info = BASE_URL + `/user/get_info_of_current_user`;
@@ -174,7 +172,7 @@ class SelectModePage extends React.Component {
                 const props = { curr_user_id: this.state.user_id,
                     opponent_id: jsonData["details"], websocket: socket};
                 const serializedProps = encodeURIComponent(JSON.stringify(props));
-                // window.location.href = `/game?props=${serializedProps}`;
+                window.location.href = `/game?props=${serializedProps}`;
             // }
         };
 

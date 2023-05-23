@@ -8,6 +8,7 @@ import LogoImage from "./img/logo.jpg"
 import Login from "./pages/LoginPage";
 import SelectModePage from "./pages/SelectModePage";
 import GamePage from "./pages/GamePage";
+import ListsInfo from "./pages/ListsInfoPage";
 // import ChooseModePage from "./pages/ChooseModePage";
 
 function App() {
@@ -34,6 +35,9 @@ function App() {
                     <Link className="Link" to="rules">Rules</Link>
                 </li>
                 <li>
+                    <Link className="Link" to="listsinfo">Information</Link>
+                </li>
+                <li>
                     <Link className="Link" to="myprofile">Profile</Link>
                 </li>
                 <li>
@@ -46,11 +50,12 @@ function App() {
             <Route path="home" element={<HomePage/>} />
             <Route path="board" element={<PlayPage/>} />
             <Route path="rules" element={<RulesPage />} />
+            <Route path="listsinfo" element={<ListsInfo />} />
             <Route path="myprofile" element={<Profile />} />
             <Route path="/" element={<Login/>} />
-            <Route path="reg" element ={<SignUp/>} />
             <Route path="selectmode" element={<SelectModePage/>} />
             <Route path="game" element={<GamePage/>} />
+            <Route path="reg" element ={<SignUp/>} />
 
             {/*<Route path="/reg" element ={<SignUp/>} />*/}
             {/*<Route path="/choosemode" element = {<ChooseModePage/>}/>*/}

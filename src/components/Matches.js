@@ -12,6 +12,7 @@ class Matches extends React.Component {
 
         this.state = {
             list_matches: [],
+            status_response: "error"
         }
 
         this.fetchMatches();
@@ -27,11 +28,9 @@ class Matches extends React.Component {
 
             if (response.ok) {
                 const data_res = await response.json();
-                this.setState({ list_matches: data_res.data }, () => {
-                    console.log(this.state.list_matches)
-                });
-            } else {
-                console.error('Ошибка при выполнении запроса');
+                this.setState({ status_response: data_res.status });
+                console.log(typeof data_res.data)
+                this.setState({ list_matches: data_res.data });
             }
         } catch (error) {
             console.error('Произошла ошибка:', error);
@@ -39,8 +38,9 @@ class Matches extends React.Component {
     }
 
     render() {
-        if (this.state.list_matches.length > 0) {
-            console.log(this.state.list_matches)
+        console.log(this.state.status_response)
+        if (this.state.status_response !== "error") {
+            // console.log(this.state.list_matches)
             return (
                 <tbody className="list-matches">
                     {this.state.list_matches.map((elem) => (
