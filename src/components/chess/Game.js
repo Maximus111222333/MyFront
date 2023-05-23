@@ -110,7 +110,7 @@ export default class Game extends React.Component {
     for (let i = 0; i < 81; i++) {
       if (
         squares[i].player === side &&
-        this.state.available_moves[i].includes(throne_coords)
+        this.available_move(i).includes(throne_coords)
       ) {
         squares[40] = new Throne(3);
         return true;
@@ -594,7 +594,7 @@ export default class Game extends React.Component {
           status: "",
           turn: turn,
         });
-        if(this.throne_is_captured((squares[i].player)))
+        if(this.throne_is_captured((this.state.turn === "white")? 1 : 2))
         {
           window.location.href = "home";
         }
